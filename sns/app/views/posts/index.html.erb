@@ -1,0 +1,26 @@
+<h1>Posts#index</h1>
+
+<%= form_tag posts_path, method: :get do %>
+  <%= text_field_tag :key_word %>
+  <%= submit_tag '検索' %>
+<% end %>
+
+<% @posts.each do |post| %>
+  <%= post.content %>@<%= post.user.name %>
+  <% post.comments.each do |comment| %>
+    <%= comment.content %><%= link_to 'コメント削除', comment, method: :delete, data: {confirm: "本当によろしいですか？"} %>
+  <% end %>
+  <div class="row">
+    <aside class="col-md-4">
+      <%= form_for(post.comments.build) do |f| %>
+
+        <div class="form-group">
+          <%= f.text_field :content, class: 'form-control' %>
+        </div>
+        <%= hidden_field_tag :post_id, post.id %>
+        <%= f.submit 'コメント', class: 'btn btn-primary btn-block' %>
+      <% end %>
+    </aside>
+
+  </div>
+<% end %>

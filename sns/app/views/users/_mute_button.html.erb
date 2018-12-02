@@ -1,0 +1,14 @@
+<% if current_user.mutes.exists?(user) %>
+  <%= form_for(current_user.mutes.find_by(id: user.id), url: user_mute_path(user), html: {method: :delete}) do |f| %>
+    <%= hidden_field_tag :user_id, user.id %>
+    <%= f.submit 'ミュートを外す' %>
+  <% end %>
+
+<% else %>
+
+  <%= form_for(current_user.mutes.build, url: user_mutes_path) do |f| %>
+    <%= hidden_field_tag :user_id, user.id %>
+    <%= f.submit 'ミュート' %>
+  <% end %>
+<% end %>
+

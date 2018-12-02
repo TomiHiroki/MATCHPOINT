@@ -1,0 +1,13 @@
+<% if current_user.blocks.exists?(user) %>
+  <%= form_for(current_user.blocks.find_by(id: user.id), url: user_block_path(user), html: {method: :delete}) do |f| %>
+    <%= hidden_field_tag :user_id, user.id %>
+    <%= f.submit 'ブロック解除' %>
+  <% end %>
+
+<% else %>
+
+  <%= form_for(current_user.blocks.build, url: user_blocks_path) do |f| %>
+    <%= hidden_field_tag :user_id, user.id %>
+    <%= f.submit 'ブロック' %>
+  <% end %>
+<% end %>

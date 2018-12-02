@@ -1,0 +1,16 @@
+<% if logged_in? %>
+  <% if current_user.img.url %>
+
+    <%= image_tag current_user.img.thumb.url %>
+  <% end %>
+  <%= link_to current_user.name, user_path(current_user) %>
+  <%= link_to 'ログアウト', logout_path, method: :delete %>
+  <%= link_to '新規投稿', new_post_path %>
+  <%= link_to '投稿一覧', posts_path %>
+  <%= link_to 'ユーザー設定', edit_user_path(current_user) %>
+
+<% else %>
+
+  <%= link_to '新規登録', new_user_path %>
+  <%= link_to 'ログイン', login_path %>
+<% end %>

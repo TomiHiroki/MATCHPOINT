@@ -1,0 +1,15 @@
+<% if current_user.followings.exists?(user) %>
+  <%= form_for(current_user.followings.find_by(id: user.id), url: user_follow_path(user), html: {method: :delete}) do |f| %>
+    <%= hidden_field_tag :user_id, user.id %>
+    <%= f.submit 'フォローを外す' %>
+  <% end %>
+
+<% else %>
+
+  <%= form_for(current_user.followings.build, url: user_follows_path) do |f| %>
+    <%= hidden_field_tag :user_id, user.id %>
+    <%= f.submit 'フォロー' %>
+  <% end %>
+<% end %>
+
+
